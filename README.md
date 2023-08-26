@@ -1,8 +1,7 @@
 ## Made:
 
-- **created migrations for products table** 
-- **also we created seeder for products table** 
-- **created model for products** 
-- **** 
+- **create table product_images (for product images) and relationships between tables**  
+- **foreach in index.blade for products**  
+- **added relationship in model Product**  
 
  
