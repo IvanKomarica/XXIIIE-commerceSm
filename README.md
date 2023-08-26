@@ -1,6 +1,8 @@
 ## Made:
 
-- **created HomeController and changed route**
-- **main layout divided on static and dynamic content with directives**
+- **created migrations for products table** 
+- **also we created seeder for products table** 
+- **created model for products** 
+- **** 
 
  
