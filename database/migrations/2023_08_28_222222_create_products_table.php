@@ -15,6 +15,8 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->boolean('in_stock');
             $table->text('description');
+            $table->bigInteger('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('')->onDelete('cascade');
             $table->timestamps();
         });
     }

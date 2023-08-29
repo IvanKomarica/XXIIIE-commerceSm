@@ -14,7 +14,7 @@ class AddNewPriceColumnToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('new_price')->nullable();
+            $table->integer('new_price')->nullable()->after('price');
         });
     }
 
@@ -26,7 +26,7 @@ class AddNewPriceColumnToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            //
+            $table->dropColumn('new_price');
         });
     }
 }

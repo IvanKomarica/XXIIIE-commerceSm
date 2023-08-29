@@ -1,15 +1,16 @@
-## Made:
-1
-- **created ProductController and show() method**  
-- **created product/show.blade**  
-- **created route showProduct**     
-- **absolute paths in main.blade links**     
-- **absolute paths in show.blade links**     
-- **include specific styles and js in show blade (blade for product)**     
+## Made: 
+#  - 1 -
+- **created migration and seeder for Category**    
+- **created model for Category**    
+- **created global variable $categories in AppServiceProvider (boot())**    
+- **ul categories in main.blade**    
+- **added route and method ProductController@showCategory**    
+- **added links in ul categories in layouts/main.blade** 
+- **created and migrated category_id to products table** 
+- **added category relationship in Product model (category())** 
+- **added category for product in badge**
+#  - 2 -
+- **create categories/index.blade**    
+- **rework ProductController@showCategory**
+- **added relationship products to Category model**
 
-2
-- **old price functional in layouts/index.blade**
-- **old price functional in product/show.blade**
-- **functional availability and general rework of details in product/show.blade**
-- **also pictures product/show.blade**
-  
