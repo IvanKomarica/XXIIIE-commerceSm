@@ -17,7 +17,7 @@ $(document).ready(function()
 {
 	"use strict";
 
-	/* 
+	/*
 
 	1. Vars and Inits
 
@@ -43,7 +43,7 @@ $(document).ready(function()
 	initMenu();
 	initIsotope();
 
-	/* 
+	/*
 
 	2. Set Header
 
@@ -61,7 +61,7 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
+	/*
 
 	3. Init Search
 
@@ -81,7 +81,7 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
+	/*
 
 	4. Init Menu
 
@@ -100,7 +100,7 @@ $(document).ready(function()
 				if(!menuActive)
 				{
 					openMenu();
-					
+
 					$(document).one('click', function cls(e)
 					{
 						if($(e.target).hasClass('menu_mm'))
@@ -173,7 +173,7 @@ $(document).ready(function()
 		menuActive = false;
 	}
 
-	/* 
+	/*
 
 	5. Init Isotope
 
@@ -217,17 +217,17 @@ $(document).ready(function()
 	        });
 
 	        // Sort based on the value from the sorting_type dropdown
-	        sortingButtons.each(function()
-	        {
-	        	$(this).on('click', function()
-	        	{
-	        		var parent = $(this).parent().parent().find('.sorting_text');
-		        		parent.text($(this).text());
-		        		var option = $(this).attr('data-isotope-option');
-		        		option = JSON.parse( option );
-	    				grid.isotope( option );
-	        	});
-	        });
+	        // sortingButtons.each(function()
+	        // {
+	        // 	$(this).on('click', function()
+	        // 	{
+	        // 		var parent = $(this).parent().parent().find('.sorting_text');
+		    //     		parent.text($(this).text());
+		    //     		var option = $(this).attr('data-isotope-option');
+		    //     		option = JSON.parse( option );
+	    	// 			grid.isotope( option );
+	        // 	});
+	        // });
 		}
 	}
 
