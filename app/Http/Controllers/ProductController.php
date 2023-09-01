@@ -21,38 +21,41 @@ class ProductController extends Controller
     {
         $category = Category::where('alias', $alias)->first();
 
-        $products = Product::where('category_id', $category->id)->get();
+        $count = 2;
+
+        $products = Product::where('category_id', $category->id)->paginate($count);
 
         if(isset($request->orderBy))
         {
             if($request->orderBy == 'price-low-high')
             {
-                $products = Product::where('category_id', $category->id)->orderBy('price')->get();
+                $products = Product::where('category_id', $category->id)->orderBy('price')->paginate($count);
             }
             if($request->orderBy == 'price-high-low')
             {
-                $products = Product::where('category_id', $category->id)->orderBy('price', 'desc')->get();
+                $products = Product::where('category_id', $category->id)->orderBy('price', 'desc')->paginate($count);
             }
             if($request->orderBy == 'name-a-z')
             {
-                $products = Product::where('category_id', $category->id)->orderBy('title')->get();
+                $products = Product::where('category_id', $category->id)->orderBy('title')->paginate($count);
             }
             if($request->orderBy == 'name-z-a')
             {
-                $products = Product::where('category_id', $category->id)->orderBy('title', 'desc')->get();
+                $products = Product::where('category_id', $category->id)->orderBy('title', 'desc')->paginate($count);
             }
-
         }
         if($request->ajax())
         {
             return view('ajax.order-by', [
-                'products' => $products
+                'products' => $products,
+                'request' => $request,
             ])->render();
         }
 
         return view('categories.index', [
             'category' => $category,
             'products' => $products,
+            'request' => $request,
         ]);
     }
 }

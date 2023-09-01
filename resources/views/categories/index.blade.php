@@ -7,42 +7,49 @@
 @section('custom_js')
     <script src="/js/categories.js"></script>
     <script>
-        $(document).ready(function (){
-            $('.product_sorting_btn').click(function (){
-                let orderBy = $(this).data('order');
+        $(document).ready(function () {
+            $('.product_sorting_btn').click(function () {
+                let orderBy = $(this).data('order')
                 $('.sorting_text').text($(this).find('span').text())
+
                 $.ajax({
-                    url: "{{ route('showCategory', $category->alias) }}",
-                    data:
-                    {
+                    url: "{{route('showCategory',$category->alias)}}",
+                    type: "GET",
+                    data: {
                         orderBy: orderBy,
+                        page: {{isset($_GET['page']) ? $_GET['page'] : 1}},
                     },
-                    headers:
-                    {
+                    headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: (data)=>
-                    {
+                    success: (data) => {
                         let positionParameters = location.pathname.indexOf('?');
-                        let url = location.pathname.substring(positionParameters, location.pathname.length);
-                        let newUrl = url + '?';
-                        newUrl += 'orderBy=' + orderBy;
-                        history.pushState({}, '', newUrl);
+                        let url = location.pathname.substring(positionParameters,location.pathname.length);
+                        let newURL = url + '?'; // http://127.0.0.1:8001/phones?
+                        newURL += "&page={{isset($_GET['page']) ? $_GET['page'] : 1}}"+'orderBy=' + orderBy; // http://127.0.0.1:8001/phones?orderBy=name-z-a
+                        history.pushState({}, '', newURL);
 
-                        $('.product_grid').html(data);
-                        $('.product_grid').isotope('destroy');
-                        $('.product_grid').imagesLoaded(function() {
-                            var grid = $('.product_grid').isotope({
+                        $('.product_pagination a').each(function(index, value){
+                            let link= $(this).attr('href')
+                            $(this).attr('href',link+'&orderBy='+orderBy)
+                        })
+
+                        $('.product_grid').html(data)
+
+                        $('.product_grid').isotope('destroy')
+                        $('.product_grid').imagesLoaded( function() {
+                            let grid = $('.product_grid').isotope({
                                 itemSelector: '.product',
                                 layoutMode: 'fitRows',
                                 fitRows:
-                                {
-                                    gutter: 30
-                                }
-                            })
-                       })
+                                    {
+                                        gutter: 30
+                                    }
+                            });
+                        });
+
                     }
-                })
+                });
             })
         })
     </script>
@@ -123,15 +130,15 @@
                                 </div>
                             </div>
                         @endforeach
-
                     </div>
-                    <div class="product_pagination">
-                        <ul>
-                            <li class="active"><a href="#">01.</a></li>
-                            <li><a href="#">02.</a></li>
-                            <li><a href="#">03.</a></li>
-                        </ul>
-                    </div>
+                        {{ $products->appends(request()->query())->links('pagination.index') }}
+{{--                    <div class="product_pagination">--}}
+{{--                        <ul>--}}
+{{--                            <li class="active"><a href="#">01.</a></li>--}}
+{{--                            <li><a href="#">02.</a></li>--}}
+{{--                            <li><a href="#">03.</a></li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
 
                 </div>
             </div>
