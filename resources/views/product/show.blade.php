@@ -6,6 +6,41 @@
 @endsection
 @section('custom_js')
     <script src="/js/product.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.cart_button').click(function (event) {
+                event.preventDefault()
+                addToCart()
+            })
+        })
+
+        function addToCart() {
+            let id = $('.details_name').data('id')
+            let qty = parseInt($('#quantity_input').val())
+
+            let total_qty = parseInt($('.cart-qty').text())
+            total_qty += qty
+            $('.cart-qty').text(total_qty)
+
+            $.ajax({
+                url: "{{route('addToCart')}}",
+                type: "POST",
+                data: {
+                    id: id,
+                    qty: qty,
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: (data) => {
+                    console.log(data)
+                },
+                error: (data) => {
+                    console.log(data)
+                }
+            });
+        }
+    </script>
 @endsection
 @section('content')
     <!-- Home -->
@@ -68,13 +103,13 @@
                 <!-- Product Content -->
                 <div class="col-lg-6">
                     <div class="details_content">
-                        <div class="details_name">Smart Phone</div>
-                        @if($item->new_price != null)
-                            <div class="details_discount">{{ $item->price }}</div>
-                            <div class="details_price">{{ $item->new_price }}</div>
-                        @else
-                            <div class="details_price">{{ $item->price }}</div>
-                        @endif
+                        <div class="details_name" data-id="{{$item->id}}" >{{$item->title}}</div>
+                            @if($item->new_price != null)
+                                <div class="details_discount">{{ $item->price }}</div>
+                                <div class="details_price">{{ $item->new_price }}</div>
+                            @else
+                                <div class="details_price">{{ $item->price }}</div>
+                            @endif
                         <!-- In Stock -->
                         <div class="in_stock_container">
                             <div class="availability">Availability:</div>

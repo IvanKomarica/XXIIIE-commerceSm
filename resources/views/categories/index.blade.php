@@ -15,11 +15,13 @@
                 $.ajax({
                     url: "{{route('showCategory',$category->alias)}}",
                     type: "GET",
-                    data: {
+                    data:
+                    {
                         orderBy: orderBy,
                         page: {{isset($_GET['page']) ? $_GET['page'] : 1}},
                     },
-                    headers: {
+                    headers:
+                    {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: (data) => {
